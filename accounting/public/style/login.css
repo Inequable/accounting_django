@@ -1,0 +1,47 @@
+body{
+	background-color: white;
+}
+
+.container{
+	/*使得容器可以垂直、水平居中*/
+	width: 400px;
+	background-color: rgba(216, 216, 216, 0.1);
+	height: 450px;
+	margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /*为容器修剪*/
+	border-radius: 20px;
+	box-shadow: 10px 10px 10px #888;
+}
+
+.logo {
+    padding: 40px;
+    font-size: 40px;
+    text-align: center;
+}
+
+.form {
+    padding: 10px 40px 40px 20px;
+}
+
+.layui-form-item .layui-input-inline{
+    width: 120px;
+}
+
+.layui-form-mid {
+    padding: 0 10px !important;
+    margin-right: 0;
+}
+/*、、、、、、、、、、、、、、、、、、、*/
+legend a{
+  font-size: 14px;
+  color: darkgrey;
+  line-height: 2;
+}
+legend a:hover{
+  color: red;
+}
