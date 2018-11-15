@@ -1,59 +1,56 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html>
- <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <title>记账登录系统</title>
-  <link rel="stylesheet" href="/public/js/layui/css/layui.css" />
-  <link rel="stylesheet" href="/public/style/login.css" />
-  <link rel="icon" href="/public/pikaqiu.ico" sizes="32x32">
- </head>
- <body>
-  <div class="container">
-   <div class="logo">
-    YWD--LOGO
-   </div>
-   <div class="form">
-    <form action="" method="post" class="layui-form">
-      {% csrf_token %}
-     <div class="layui-form-item">
-      <label class="layui-form-label">用户名：</label>
-      <div class="layui-input-block">
-       <input type="text" name="username" required="" lay-verify="required|username" placeholder="请输入用户名" autocomplete="off" class="layui-input" />
-      </div>
-     </div>
-     <div class="layui-form-item">
-      <label class="layui-form-label">密码：</label>
-      <div class="layui-input-block">
-       <input type="password" name="password" required="" lay-verify="required|password" placeholder="请输入密码" autocomplete="off" class="layui-input" />
-      </div>
-     </div>
-     <div class="layui-form-item">
-      <label class="layui-form-label">验证码：</label>
-      <div class="layui-input-inline">
-       <!-- <input type="text" name="code" required="" lay-verify="required|code" placeholder="请输入验证码" autocomplete="off" class="layui-input" /> -->
-      </div>
-      <div class="layui-form-mid layui-word-aux">
-       <img src="" height="38px" width="70px" alt="验证码" />
-      </div>
-     </div>
-     <div class="layui-form-item">
-     <!-- 、、、、、、、、、 -->
-      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
-        <legend><a href="javascript:;" id="regist">没有账号，前往注册!</a></legend>
-      </fieldset>
-      <!-- 、、、、、、 -->
-     </div>
-     <div class="layui-form-item">
-      <div class="layui-input-block">
-       <button class="layui-btn" lay-submit="" lay-filter="sbt">立即提交</button>
-       <button type="reset" class="layui-btn layui-btn-primary">重置</button>
-      </div>
-     </div>
-    </form>
-   </div>
-  </div>
-  <script src="/public/js/layui/layui.all.js"></script>
-  <script src="/public/js/login.js"></script>
- </body>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<title>记账登录系统</title>
+	<link rel="stylesheet" href="{% static '/js/layui/css/layui.css' %}" />
+	<link rel="stylesheet" href="{% static '/style/login.css' %}" />
+	<link rel="icon" href="{% static '/pikaqiu.ico' %}" sizes="32x32">
+</head>
+<body>
+	<div class="container">
+		<div class="logo">
+			YWD--LOGO
+		<br>
+		{% if message %}
+			{{ message }}
+		{% endif %}
+		</div>
+		<div class="form">
+			<form action="" class="layui-form" method="post">
+				{% csrf_token %}
+				{% for field in login_form %}
+				<div class="layui-form-item">
+					<label for="{{ field.id_for_label }}" class="layui-form-label">{{ field.label }}：</label>
+					<div class="layui-input-block">{{ field }}</div>
+				</div>
+				{% endfor %}
+				<div class="layui-form-item">
+					<label class="layui-form-label">验证码：</label>
+					<div class="layui-input-inline">
+						<input type="text" name="code" required="" lay-verify="required|code" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
+					</div>
+					<div class="layui-form-mid layui-word-aux">
+						<img src="/verifycode" height="38px" width="70px" alt="验证码" />
+					</div>
+				</div>
+				<div class="layui-form-item">
+					<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+						<legend><a href="javascript:;" id="regist">没有账号，前往注册!</a></legend>
+					</fieldset>
+				</div>
+				<div class="layui-form-item">
+					<div class="layui-input-block">
+						<button class="layui-btn" lay-submit="" lay-filter="sbt">立即提交</button>
+						<button type="reset" class="layui-btn layui-btn-primary">重置</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script src="{% static '/js/layui/layui.all.js'  %}"></script>
+	<script src="{% static '/js/login.js' %}"></script>
+</body>
 </html>

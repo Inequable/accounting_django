@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
 	'index',  # 将新建的app添加进程序
+	# 'captcha', # 增加验证码的模块，需要pip install django-simple-captcha ,,,,captcha需要在数据库中建立自己的数据表，所以需要执行migrate命令生成数据表
 ]
 
 MIDDLEWARE = [
@@ -114,9 +115,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

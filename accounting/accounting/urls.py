@@ -17,13 +17,16 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path,include
-from . import view
+from . import view, utils
 from django.conf import settings
+# from accounting.utils import verifycode
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('test/', view.hello),
-    path('index/', include('index.url')) # 将index app的url.py路由文件导入进主app中，进行调用
+    path('index/', include('index.url')), # 将index app的url.py路由文件导入进主app中，进行调用
+    # path('captcha/', include('captcha.urls')),
+    path('verifycode/', utils.verifycode), # python 验证码
 ]
 
 if settings.DEBUG is False:
