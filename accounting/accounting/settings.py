@@ -86,7 +86,7 @@ DATABASES = {
 		'ENGINE': 'django.db.backends.mysql',  # 或者使用 mysql.connector.django
 		'NAME': 'accounting',
 		'USER': 'root',
-		'PASSWORD': '2015329122',
+		'PASSWORD': '123456',
 		'HOST':'localhost',
 		'PORT':'3306',
 	}
@@ -134,3 +134,6 @@ STATIC_ROOT = '/var/www/html/accounting/public'
 STATICFILES_DIRS = (
 	os.path.join(os.path.dirname(__file__), '../public/'),
 )
+
+# 字体路径参数，centos7,可以使用fc-list查询font路径
+VERIFY_CODE_FONT_PATH = '/usr/share/fonts/dejavu/'
