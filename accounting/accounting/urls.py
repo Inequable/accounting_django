@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path,include
 from . import view, utils
 from django.conf import settings
+from django.conf.urls import url
 # from accounting.utils import verifycode
 
 urlpatterns = [
@@ -26,7 +27,7 @@ urlpatterns = [
     path('test/', view.hello),
     path('index/', include('index.url')), # 将index app的url.py路由文件导入进主app中，进行调用
     # path('captcha/', include('captcha.urls')),
-    path('verifycode/', utils.verifycode), # python 验证码
+    url(r'^verifycode/$', utils.verifycode, name='image'), # python 验证码
 ]
 
 if settings.DEBUG is False:

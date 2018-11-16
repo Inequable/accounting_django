@@ -1,0 +1,8 @@
+这是一个字体文件夹，因为某些模块需要用到字体，故下载几个字体存放在此文件夹中，如：生成验证码部分
+字体文件下载：http://www.font5.com.cn/
+使用方法：（注：一下方法时在centos7下的，其他方法自行百度）
+①运用指令：fc-list 查看安装的系统是否有字体库文件，一般查完应该是在 /usr/share/fonts/
+②若没有字体库，则用指令：yum -y install fontconfig 进行安装
+③在/usr/share/fonts/路径下创建一个文件夹，用来存放字体文件，指令：mkdir /usr/share/fonts/myfont && chmod 755 /usr/share/fonts/myfont
+④使用指令：fc-cache -fv 更新系统字体缓存
+⑤这些font有点奇葩，可以自己下载一些，自己比较喜欢的下载
