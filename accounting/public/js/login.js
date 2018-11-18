@@ -52,12 +52,14 @@
 				contentType: 'application/json', // 提交json的数据
 				data: JSON.stringify(_data.field), // 这里需要转化成json格式
 				success: function (_res) {
+					var _res = JSON.parse(_res);
 					if (_res.code == '0') {
 						layer.msg('注册成功', {
 							icon: 6,
 							time: 2000,
+						},function () {
+							layer.closeAll();
 						});
-						layer.closeAll();
 					}else{
 						layer.msg('注册失败', {
 							icon: 5,

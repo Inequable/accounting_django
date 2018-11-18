@@ -89,15 +89,14 @@ def register(request):
 		ret = {"code":"0", "msg":"", "count":"", "data":[]}
 		# 处理前端获取的json数据
 		data = json.loads(request.body.decode("utf8"))
-		# json 数据循环遍历
-		key_value = ''
+		# 获取模型对象
 		m_user = user()
 		for key,value in data.items():
-			# 判断json对象的键值是否有值，有值才进行转化
-			if value:
-				m_user.key = value
-		# m_user.save()
-		print(m_user)
-		return HttpResponse('ok')
+			field = user._meta.get_field(key) # 字段是否与模型表字段对应
+			if value and field:
+				setattr(m_user, key, value) # 有值并且对应上模型表的字段名，将模型对象的字段设置值
+		# 插入数据
+		m_user.save()
+		return HttpResponse(json.dumps(ret)) # 响应成对应的json格式（对应layui的json格式）
 	# 不是异步重定向登录页面
 	return redirect('/index/login')
