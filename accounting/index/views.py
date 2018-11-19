@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+import json
 from index.models import *
 from index.forms import *
 
@@ -77,8 +78,26 @@ def sortManagement(request):
 		return redirect('/index/login')
 	return render(request, 'sortManagement.html')
 
+
+# 使用原生sql语句的网站参考网址：https://blog.csdn.net/u012422446/article/details/52623069
 # 用户注册
 def register(request):
-	if not request.session.get('is_login', None):
-		return redirect('/index/login')
-	return render(request, 'register.html')
+	if request.session.get('is_login', None):
+		return redirect('/index/index')
+	# 判断是否是异步请求
+	if request.is_ajax():
+		ret = {"code":"0", "msg":"", "count":"", "data":[]}
+		# 处理前端获取的json数据
+		data = json.loads(request.body.decode("utf8"))
+		# json 数据循环遍历
+		key_value = ''
+		m_user = user()
+		for key,value in data.items():
+			# 判断json对象的键值是否有值，有值才进行转化
+			if value:
+				m_user.key = value
+		# m_user.save()
+		print(m_user)
+		return HttpResponse('ok')
+	# 不是异步重定向登录页面
+	return redirect('/index/login')

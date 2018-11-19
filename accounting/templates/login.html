@@ -50,11 +50,86 @@
 			</form>
 		</div>
 	</div>
+
+	<script type="text/html" id="register">
+		<form method="post" action="" onsubmit="return false;" class="layui-form layui-form-pane" style="padding: 30px 30px 30px 60px;">
+			<div class="layui-form-item">
+				<label class="layui-form-label">用户名：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="text" name="username" class="layui-input" lay-verify="required|username" autocomplete="off" placeholder="请输入用户名" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">密码：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="password" name="password" id="password" class="layui-input" lay-verify="required|password" autocomplete="off" placeholder="请输入密码" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">确认密码：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="password" class="layui-input" lay-verify="required|password|confirmPassword" autocomplete="off" placeholder="请输入确认密码" />
+				</div>
+				<div class="layui-form-mid layui-word-aux" style="padding: 9px 0 !important;">请再次确认密码</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">单选框</label>
+				<div class="layui-input-block">
+					<input type="radio" name="sex" value="男" title="男">
+					<input type="radio" name="sex" value="女" title="女">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">职业：</label>
+				<div class="layui-input-inline">
+					<select name="group" lay-search>
+						<option value="">未知</option>
+						<option value="1">学生</option>
+						<option value="2">农民</option>
+						<option value="3">白领</option>
+						<option value="4">Boss</option>
+						<option value="5">职工</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">Email：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="text" name="email" class="layui-input" lay-verify="required|email" autocomplete="off" placeholder="请输入邮箱" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">WeChat：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="text" name="wechat" class="layui-input" autocomplete="off" placeholder="请输入微信号" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">QQ：</label>
+				<div class="layui-input-inline" style="width: auto;">
+					<input type="text" name="qq" class="layui-input" autocomplete="off" placeholder="请输入QQ号" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label">地址：</label>
+				<div class="layui-input-inline" style="width: 350px;">
+					<input type="text" name="addr" class="layui-input" autocomplete="off" placeholder="请输入地址" />
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<div class="layui-input-block">
+					<button class="layui-btn" lay-filter="register" lay-submit>注册</button>
+					<button class="layui-btn" type="reset">重置</button>
+				</div>
+			</div>
+		</form>
+	</script>
+
 	<script src="{% static '/js/layui/layui.all.js'  %}"></script>
 	<script src="{% static '/js/login.js' %}"></script>
 	<script type="text/javascript">
 		function create_code(){
-	   		document.getElementById('yzm').src = "{% url 'image' %}?"+Math.ceil(Math.random()*10000);
+			document.getElementById('yzm').src = "{% url 'image' %}?"+Math.ceil(Math.random()*10000);
 		}
 	</script>
 </body>

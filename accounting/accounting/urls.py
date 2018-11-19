@@ -27,7 +27,7 @@ urlpatterns = [
     path('test/', view.hello),
     path('index/', include('index.url')), # 将index app的url.py路由文件导入进主app中，进行调用
     # path('captcha/', include('captcha.urls')),
-    url(r'^verifycode/$', utils.verifycode, name='image'), # python 验证码
+    url(r'^verifycode/$', utils.verifycode, name='image'), # python 验证码 name 是用来反向解析路径的
 ]
 
 if settings.DEBUG is False:

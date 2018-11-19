@@ -53,21 +53,23 @@ class user(models.Model):
 	username = models.CharField(max_length=100, verbose_name='用户名称/账号')
 	password = models.CharField(max_length=100, verbose_name='用户密码')
 	SEX_CHOICES = (
+		('0','未知'),
 		('1', '男'),
 		('2', '女'),
 	)
-	sex = models.CharField(null=True, blank=True, max_length=4, verbose_name='性别，默认1为男2为女')
+	sex = models.CharField(null=True, default=0, blank=True, max_length=4, verbose_name='性别，默认0,,1为男2为女')
 	addr = models.CharField(null=True, blank=True, default='', max_length=255, verbose_name='地址')
 	email = models.EmailField(null=True, blank=True, max_length=254, default='', verbose_name='邮箱')
 	wechat = models.CharField(null=True, blank=True, max_length=100, default='', verbose_name='微信号')
 	qq = models.CharField(null=True, blank=True, max_length=100, default='', verbose_name='qq号')
 	vip = models.SmallIntegerField(default=0, verbose_name='vip等级')
 	GROUP_CHOICES = (
+		('0','未知'),
 		('1', '学生'),
 		('2', '农民'),
 		('3', '白领'),
 		('4', 'Boss'),
 		('5', '职工'),
 	)
-	group = models.CharField(max_length=4, default=1, choices=GROUP_CHOICES, verbose_name='用户组')
+	group = models.CharField(max_length=4, default=0, choices=GROUP_CHOICES, verbose_name='用户组')
 	isdel = models.SmallIntegerField(default=0, verbose_name='是否删除，默认0未删除1是删除')

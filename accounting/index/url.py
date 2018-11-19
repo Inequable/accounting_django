@@ -5,9 +5,10 @@ from index.views import *
 
 urlpatterns = [
 	path('login/', login),
+    path('logout/', logout),
 	path('index/', main),
 	path('account/', account),
 	path('bill/', bill),
 	path('sortManagement/', sortManagement),
-    path('logout/', logout),
+    path('register/', register),
 ]
