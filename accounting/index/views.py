@@ -24,7 +24,7 @@ def login(request):
 			try:
 				userInfo = user.objects.get(username=username)
 				# 判断前端提交的密码和数据库的是否一致，以及验证码是否正确
-				if (userInfo.password == password) and (request.session['verifycode'] == code):
+				if (userInfo.password == encryption(password)) and (request.session['verifycode'] == code):
 					# 将登录成功的用户信息记录在session会话里
 					request.session['is_login'] = True
 					request.session['user_id'] = userInfo.id
@@ -81,14 +81,20 @@ def sortManagement(request):
 
 # 使用原生sql语句的网站参考网址：https://blog.csdn.net/u012422446/article/details/52623069
 # 用户注册
+# 中文字符转化未弄过，全部有中文字符的都要注意一下，后期更改
 def register(request):
 	if request.session.get('is_login', None):
 		return redirect('/index/index')
 	# 判断是否是异步请求
-	if request.is_ajax():
+	if request.is_ajax() and request.method == 'POST':
 		ret = {"code":"0", "msg":"", "count":"", "data":[]}
 		# 处理前端获取的json数据
 		data = json.loads(request.body.decode("utf8"))
+		data['password'] = encryption(data['password'])
+		# 唯一用户命验证
+		if user.objects.filter(username=data['username']):
+			ret['msg'],ret['code'] = '用户名已存在',-1
+			return HttpResponse(json.dumps(ret))
 		# 获取模型对象
 		m_user = user()
 		code = data.pop('code') # 删除code字段名，因为不属于user表内的字段，并取得该值
@@ -101,9 +107,15 @@ def register(request):
 					setattr(m_user, key, value) # 有值并且对应上模型表的字段名，将模型对象的字段设置值
 			# 插入数据
 			m_user.save()
-			if any(m_user): # 判断返回对象是否为空any()函数
-				print(m_user)
+			if m_user.id: # 判断返回对象是否为空any()函数
 				ret['msg'] = '注册成功'
 		return HttpResponse(json.dumps(ret)) # 响应成对应的json格式（对应layui的json格式）
 	# 不是异步重定向登录页面
 	return redirect('/index/login')
+
+# 加密-密码
+import hashlib
+def encryption(password=''):
+	password = password + 'SALT'
+	encryption_pass = hashlib.md5(password.encode('utf-8'))
+	return encryption_pass.hexdigest()
