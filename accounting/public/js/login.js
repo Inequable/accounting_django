@@ -37,7 +37,7 @@
 				type:1,
 				title: ['用户信息注册'],
 				content:html,
-				area: ['600px', '650px'],
+				area: ['600px', '710px'],
 				closeBtn: 0,
 				anim: 5,
 			})
@@ -54,14 +54,15 @@
 				success: function (_res) {
 					var _res = JSON.parse(_res);
 					if (_res.code == '0') {
-						layer.msg('注册成功', {
+						layer.msg(_res.msg, {
 							icon: 6,
 							time: 2000,
 						},function () {
 							layer.closeAll();
+							window.location.reload()
 						});
 					}else{
-						layer.msg('注册失败', {
+						layer.msg(_res.msg, {
 							icon: 5,
 							time: 2000,
 						});

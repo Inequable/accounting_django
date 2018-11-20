@@ -33,7 +33,7 @@
 					</div>
 					<div class="layui-form-mid layui-word-aux">
 						<!-- 反向解析路径，需要name并且是使用url模块 -->
-						<img src="{% url 'image' %}" height="38px" width="100px" alt="验证码" id="yzm" onclick="create_code()" style="cursor: pointer;" />
+						<img src="{% url 'image' %}" height="38px" width="100px" alt="验证码" onclick="return this.src = '/verifycode?'+Math.ceil(Math.random()*10000);" style="cursor: pointer;" />
 					</div>
 				</div>
 				<div class="layui-form-item">
@@ -117,6 +117,15 @@
 				</div>
 			</div>
 			<div class="layui-form-item">
+				<label class="layui-form-label">验证码：</label>
+				<div class="layui-input-inline">
+					<input type="text" name="code" lay-verify="required|code" placeholder="请输入验证码" autocomplete="off" class="layui-input" />
+				</div>
+				<div class="layui-form-mid layui-word-aux">
+					<img src="{% url 'image' %}" height="38px" width="100px" alt="验证码" onclick="return this.src = '/verifycode?'+Math.ceil(Math.random()*10000);" style="cursor: pointer;" />
+				</div>
+			</div>
+			<div class="layui-form-item">
 				<div class="layui-input-block">
 					<button class="layui-btn" lay-filter="register" lay-submit>注册</button>
 					<button class="layui-btn" type="reset">重置</button>
@@ -127,10 +136,5 @@
 
 	<script src="{% static '/js/layui/layui.all.js'  %}"></script>
 	<script src="{% static '/js/login.js' %}"></script>
-	<script type="text/javascript">
-		function create_code(){
-			document.getElementById('yzm').src = "{% url 'image' %}?"+Math.ceil(Math.random()*10000);
-		}
-	</script>
 </body>
 </html>

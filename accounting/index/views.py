@@ -91,12 +91,19 @@ def register(request):
 		data = json.loads(request.body.decode("utf8"))
 		# 获取模型对象
 		m_user = user()
-		for key,value in data.items():
-			field = user._meta.get_field(key) # 字段是否与模型表字段对应
-			if value and field:
-				setattr(m_user, key, value) # 有值并且对应上模型表的字段名，将模型对象的字段设置值
-		# 插入数据
-		m_user.save()
+		code = data.pop('code') # 删除code字段名，因为不属于user表内的字段，并取得该值
+		if request.session['verifycode'] != code:
+			ret['code'],ret['msg'] = -1,'注册失败，验证码错误'
+		else:
+			for key,value in data.items():
+				field = user._meta.get_field(key) # 字段是否与模型表字段对应
+				if value and field:
+					setattr(m_user, key, value) # 有值并且对应上模型表的字段名，将模型对象的字段设置值
+			# 插入数据
+			m_user.save()
+			if any(m_user): # 判断返回对象是否为空any()函数
+				print(m_user)
+				ret['msg'] = '注册成功'
 		return HttpResponse(json.dumps(ret)) # 响应成对应的json格式（对应layui的json格式）
 	# 不是异步重定向登录页面
 	return redirect('/index/login')
